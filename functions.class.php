@@ -7,8 +7,7 @@
 
 namespace Functions;
 
-class Tool
-{
+class Tool {
 
     # HTTPS
 
