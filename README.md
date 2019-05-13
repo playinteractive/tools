@@ -10,19 +10,19 @@ $ composer require playinteractive/tools dev-master
 ```php
 use Functions\Tool;
 
-# Status Code
-
-Tool::statusCode(404);
-
 # HTTPS
 
 Tool::https() ? 'https' : 'http';
 
-# Replace String
+# Status Code
 
-Tool::replaceString($string, $separator = FALSE, $allow = FALSE);
+Tool::statusCode(404);
 
 # Validate Text
 
 Tool::validateText($text, $db = FALSE, $tag = FALSE, $textarea = FALSE, $decoration = TRUE);
+
+# Replace String
+
+Tool::replaceString($string, $separator = FALSE, $allow = FALSE);
 ```
