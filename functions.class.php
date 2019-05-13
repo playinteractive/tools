@@ -168,8 +168,6 @@ class Tool {
             if (!(substr($node->getAttribute('href'), 0, 2) == '[[' AND substr($node->getAttribute('href'), -2) == ']]')) if (!parse_url($node->getAttribute('href'), PHP_URL_SCHEME)) $node->setAttribute('href', 'http://' . $node->getAttribute('href'));
         }
 
-        $text = html_entity_decode(urldecode(trim(strip_tags($dom->saveXML(), $tag))));
-
-        return $db ? $db->real_escape_string($text) : $text;
+        return $db ? $db->real_escape_string(html_entity_decode(urldecode(trim(strip_tags($dom->saveXML(), $tag))))) : html_entity_decode(urldecode(trim(strip_tags($dom->saveXML(), $tag))));
     }
 }
