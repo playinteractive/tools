@@ -145,9 +145,7 @@ class Tool {
 
         $dom = new DOMDocument;
 
-        $text = $decoration ? (preg_replace('/\"([^<>]*?)\"(?=(?:[^>]*?(?:<|$)))/', '“\1”', str_replace(array('`', '´'), array('‘', '’'), $textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text))))) : ($textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text)));
-
-        @$dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$dom->loadHTML(mb_convert_encoding($decoration ? (preg_replace('/\"([^<>]*?)\"(?=(?:[^>]*?(?:<|$)))/', '“\1”', str_replace(array('`', '´'), array('‘', '’'), $textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text))))) : ($textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text))), 'HTML-ENTITIES'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         foreach ($dom->getElementsByTagName('a') as $node) {
 
