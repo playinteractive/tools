@@ -1,0 +1,29 @@
+s (27 sloc)  777 Bytes
+    
+{
+    "name": "playinteractive/tools",
+    "type": "library",
+    "description": "Basic tools for website development.",
+    "keywords": [
+        "tools", "php", "domdocument", "shutdown", "validate", "status", "code", "replace", "https", "text", "validation" 
+    ],
+    "homepage": "https://github.com/playinteractive/tools",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Playinteractive",
+            "email": "salva@playinteractive.com",
+            "homepage": "https://www.playinteractive.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.0.0"
+    },
+    "autoload": {
+        "classmap": [
+            "functions.class.php"
+        ]
+    }
+}
