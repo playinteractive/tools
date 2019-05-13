@@ -1,6 +1,6 @@
 <?php
 /**
- * @author    Playinteractive <mysqli.github@playinteractive.com>
+ * @author    Playinteractive <tools.github@playinteractive.com>
  * @link      http://www.playinteractive.com
  * @copyright 2017 Playinteractive
  */
