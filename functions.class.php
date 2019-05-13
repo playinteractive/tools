@@ -43,7 +43,7 @@ class Tool {
 
     # STATUS CODE
     
-    public static function statusCode($code, $ERROR = TRUE) {
+    public static function statusCode($code) {
 
         if ($code == 200):
 
@@ -129,7 +129,7 @@ class Tool {
 
         endif;
 
-        if ($ERROR) return $ERROR = http_response_code();
+        return http_response_code();
     }
 
     # VALIDATE STRING
