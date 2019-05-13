@@ -141,12 +141,12 @@ class Tool {
 
     # VALIDATE TEXT
 
-    public static function validateText($text, $db = FALSE, $tag = FALSE, $textarea = FALSE) {
-
-        $text = preg_replace('/\"([^<>]*?)\"(?=(?:[^>]*?(?:<|$)))/', '“\1”', str_replace(array('`', '´'), array('‘', '’'), $textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text))));
+    public static function validateText($text, $db = FALSE, $tag = FALSE, $textarea = FALSE, $decoration = TRUE) {
 
         $dom = new DOMDocument;
-                
+
+        $text = $decoration ? (preg_replace('/\"([^<>]*?)\"(?=(?:[^>]*?(?:<|$)))/', '“\1”', str_replace(array('`', '´'), array('‘', '’'), $textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text))))) : ($textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text)));
+
         @$dom->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         foreach ($dom->getElementsByTagName('a') as $node) {
