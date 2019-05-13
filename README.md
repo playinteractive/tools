@@ -8,23 +8,23 @@ $ composer require playinteractive/tools dev-master
 
 # Example
 ```php
-$db = new mysqli_connect($username, $password, $database, array('offset' => date('P')));
+use Functions\Tool;
 
 # Status Code
 
-Functions\Tool::statusCode(404);
+Tool::statusCode(404);
 
 # HTTPS
 
-Functions\Tool::https() ? 'https' : 'http';
+Tool::https() ? 'https' : 'http';
 
 # Replace String
 
-Functions\Tool::replaceString($string, $separator = FALSE, $allow = FALSE);
+Tool::replaceString($string, $separator = FALSE, $allow = FALSE);
 
 # Validate Text
 
-Functions\Tool::validateText($text, $db = FALSE, $tag = FALSE, $textarea = FALSE, $decoration = TRUE);
+Tool::validateText($text, $db = FALSE, $tag = FALSE, $textarea = FALSE, $decoration = TRUE);
 ```
 # Options
 ```php
