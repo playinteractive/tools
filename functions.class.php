@@ -3,16 +3,17 @@
  * @author    Playinteractive <tools.github@playinteractive.com>
  * @link      https://www.playinteractive.com
  * @copyright 2017 Playinteractive
+ * @source    https://github.com/playinteractive/tools
  */
 
 namespace Functions;
 
-class Tool {
-
+class Tool
+{
     # HTTPS
 
-    public static function https() {
-
+    public static function https()
+    {
         if (isset($_SERVER['REQUEST_SCHEME']) AND strtolower($_SERVER['REQUEST_SCHEME']) === 'https') return TRUE;
 
         if (isset($_SERVER['HTTPS']) AND (strtolower($_SERVER['HTTPS']) === 'on' OR $_SERVER['HTTPS'] === 1)) return TRUE;
@@ -26,8 +27,8 @@ class Tool {
 
     # REPLACE STRING
 
-    public static function replaceString($string, $separator = FALSE, $allow = FALSE) {
-
+    public static function replaceString($string, $separator = FALSE, $allow = FALSE)
+    {
         $search = array('ª', 'à', 'á', 'ä', 'â', 'ã', 'å', 'ā', 'ą', 'Ą', 'Ā', 'À', 'Á', 'Â', 'Ä', 'Ã', 'Å', 'ć', 'č', 'ç', 'Č', 'Ç', 'Ć', 'é', 'è', 'ë', 'ê', 'ē', 'ĕ', 'ė', 'ę', 'ě', 'Ē', 'Ĕ', 'Ė', 'Ę', 'Ě', 'É', 'È', 'Ë', 'Ê', 'ƒ', 'Ğ', 'Ģ', 'ğ', 'ģ', 'į', 'ī', 'í', 'ì', 'ï', 'î', 'Ī', 'Į', 'İ', 'Í', 'Ì', 'Ï', 'Î', 'Ķ', 'ķ', 'Ĺ', 'Ļ', 'ĺ', 'ļ', 'Ń', 'Ņ', 'Ň', 'Ñ', 'ń', 'ņ', 'ň', 'ñ', 'º', 'ó', 'ò', 'ö', 'ô', 'õ', 'ø', 'Ó', 'Ò', 'Ö', 'Ô', 'Õ', 'Ø', 'Ř', 'ř', 'Ś', 'Ş', 'Š', 'ś', 'ş', 'š', 'Ť', 'ť', 'ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Ü', 'Û', 'Ū', 'Ů', 'Ų', 'ū', 'ů', 'ų', 'Ý', 'Ÿ', 'ý', 'ÿ', 'Ź', 'Ż', 'Ž', 'ż', 'ź', 'ž', '&#039;', '&amp;', '&quot;', '&lt;', '&gt;');
         $replace = array('a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'c', 'c', 'c', 'C', 'C', 'C', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'f', 'G', 'G', 'g', 'g', 'i', 'i', 'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'K', 'k', 'L', 'L', 'l', 'l', 'N', 'N', 'N', 'N', 'n', 'n', 'n', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O', 'O', 'O', 'R', 'r', 'S', 'S', 'S', 's', 's', 's', 'T', 't', 'u', 'u', 'u', 'u', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'u', 'u', 'u', 'Y', 'Y', 'y', 'y', 'Z', 'Z', 'Z', 'z', 'z', 'z', '\'', '&', '"', '<', '>');
 
@@ -36,15 +37,15 @@ class Tool {
 
     # SHUTDOWN
     
-    public static function shutdown() {
-
+    public static function shutdown()
+    {
         if (defined('PERFORMANCE')) print_r(array(['memory_final' => number_format(memory_get_usage()), 'memory_initial' => number_format(PERFORMANCE['memory']), 'memory_peak' => number_format(memory_get_peak_usage()), 'time' => number_format((microtime(TRUE) - PERFORMANCE['time']), 3)]));
     }
 
     # STATUS CODE
     
-    public static function statusCode($code) {
-
+    public static function statusCode($code)
+    {
         if ($code == 200):
 
         header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
@@ -134,15 +135,15 @@ class Tool {
 
     # VALIDATE STRING
 
-    public static function validateString($string, $db = FALSE) {
-
+    public static function validateString($string, $db = FALSE)
+    {
         return $db ? $db->real_escape_string(trim(strip_tags($string))) : trim(strip_tags($string));
     }
 
     # VALIDATE TEXT
 
-    public static function validateText($text, $db = FALSE, $tag = FALSE, $textarea = FALSE, $decoration = TRUE) {
-
+    public static function validateText($text, $db = FALSE, $tag = FALSE, $textarea = FALSE, $decoration = TRUE)
+    {
         $dom = new DOMDocument;
 
         @$dom->loadHTML(mb_convert_encoding($decoration ? (preg_replace('/\"([^<>]*?)\"(?=(?:[^>]*?(?:<|$)))/', '“\1”', str_replace(array('`', '´'), array('‘', '’'), $textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text))))) : ($textarea ? $text : trim(preg_replace(array('@([\r\n])[\s]+@', '@&(nbsp|#160);@i', '/\s\s+/u'), ' ', $text))), 'HTML-ENTITIES'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
