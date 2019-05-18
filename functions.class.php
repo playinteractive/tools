@@ -3,7 +3,7 @@
  * @author    Playinteractive <tools.github@playinteractive.com>
  * @link      https://www.playinteractive.com
  * @copyright 2017 Playinteractive
- * @source    https://github.com/playinteractive/tools
+ * @package    https://github.com/playinteractive/tools
  */
 
 namespace Functions;
