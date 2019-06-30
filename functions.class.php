@@ -3,7 +3,7 @@
  * @author    Playinteractive <tools.github@playinteractive.com>
  * @link      https://www.playinteractive.com
  * @copyright 2017 Playinteractive
- * @package    https://github.com/playinteractive/tools
+ * @package   https://github.com/playinteractive/tools
  */
 
 namespace Functions;
@@ -25,6 +25,43 @@ class Tool
         else return FALSE;
     }
 
+    # PATH
+
+    public static function path($file, $directory = FALSE, $basename = FALSE, $location = FALSE)
+    {
+        return realpath($location ? ($file ? join(DIRECTORY_SEPARATOR, array($location, $file)) : $location) : join(DIRECTORY_SEPARATOR, array($basename ?: getenv('ROOT'), is_array($directory) ? join(DIRECTORY_SEPARATOR, $directory) : $directory, $file)));
+    }
+
+    # PERFORMANCE
+    
+    public static function performance()
+    {
+        return print_r(array(['memory_final' => number_format(memory_get_usage()), 'memory_initial' => number_format(PERFORMANCE['memory']), 'memory_peak' => number_format(memory_get_peak_usage()), 'time' => number_format((microtime(TRUE) - PERFORMANCE['time']), 3)]));
+    }
+
+    # REDIRECT
+    
+    public static function redirect($redirect)
+    {
+        
+        if (parse_url($redirect, PHP_URL_SCHEME)) {
+        
+            $redirect_hostname = tld_extract($redirect)['hostname'] . '.' . tld_extract($redirect)['suffix'];
+            $redirect_scheme = explode($redirect_hostname, $redirect)[0];
+            $redirect_query = parse_url($redirect, PHP_URL_QUERY) ? '?' . parse_url($redirect, PHP_URL_QUERY) : FALSE;
+            $redirect_fragment = parse_url($redirect, PHP_URL_FRAGMENT) ? '#' . parse_url($redirect, PHP_URL_FRAGMENT) : FALSE;
+            $redirect = substr(explode($redirect_hostname, $redirect)[1], 0, strpos(explode($redirect_hostname, $redirect)[1], '?'));
+        }
+
+        $redirect_array = explode(SEPARATOR, $redirect);
+
+        foreach ($redirect_array as $k => $v) $redirect_array[$k] = rawurlencode($redirect_array[$k]);
+
+        $redirect = implode(SEPARATOR, $redirect_array);
+
+        return isset($redirect_scheme) ? $redirect_scheme . $redirect_hostname . $redirect . $redirect_query . $redirect_fragment : $redirect;
+    }
+
     # REPLACE STRING
 
     public static function replaceString($string, $separator = FALSE, $allow = FALSE)
@@ -33,13 +70,6 @@ class Tool
         $replace = array('a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'c', 'c', 'c', 'C', 'C', 'C', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'f', 'G', 'G', 'g', 'g', 'i', 'i', 'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'K', 'k', 'L', 'L', 'l', 'l', 'N', 'N', 'N', 'N', 'n', 'n', 'n', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O', 'O', 'O', 'R', 'r', 'S', 'S', 'S', 's', 's', 's', 'T', 't', 'u', 'u', 'u', 'u', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'u', 'u', 'u', 'Y', 'Y', 'y', 'y', 'Z', 'Z', 'Z', 'z', 'z', 'z', '\'', '&', '"', '<', '>');
 
         return str_replace(' ', $separator, trim(preg_replace('/\s\s+/', ' ', preg_replace('/[^a-zA-Z0-9' . $allow . ']/', ' ', str_replace($search, $replace, $string)))));
-    }
-
-    # SHUTDOWN
-    
-    public static function shutdown()
-    {
-        if (defined('PERFORMANCE')) print_r(array(['memory_final' => number_format(memory_get_usage()), 'memory_initial' => number_format(PERFORMANCE['memory']), 'memory_peak' => number_format(memory_get_peak_usage()), 'time' => number_format((microtime(TRUE) - PERFORMANCE['time']), 3)]));
     }
 
     # STATUS CODE
